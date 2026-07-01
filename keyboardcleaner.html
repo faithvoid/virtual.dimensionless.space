@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+      <link rel="stylesheet" href="css/osaka.css">
+<head>
+    <title>Keyboard Lock</title>
+<center><h1> Osaka's Keyboard Cleaner </h1></center>
+    <style>
+        .status {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            color: white;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="status">Keyboard Locked: <span id="lockStatus">No</span></div>
+
+
+    <div class="form-container">
+    <center><button class="button" id="toggleButton">Toggle Lock</button>
+        <input type="text" class="input-text" placeholder="Test the keyboard lock..." />
+    </div>
+
+    <script>
+        var isLocked = false;
+
+        // Lock the keyboard
+        function lockKeyboard() {
+            document.addEventListener('keydown', preventKeydown);
+            document.addEventListener('keyup', preventKeyup);
+            document.addEventListener('keypress', preventKeypress);
+            document.getElementById('lockStatus').textContent = 'Yes';
+        }
+
+        // Unlock the keyboard
+        function unlockKeyboard() {
+            document.removeEventListener('keydown', preventKeydown);
+            document.removeEventListener('keyup', preventKeyup);
+            document.removeEventListener('keypress', preventKeypress);
+            document.getElementById('lockStatus').textContent = 'No';
+        }
+
+        // Prevent keydown events
+        function preventKeydown(event) {
+            event.preventDefault();
+        }
+
+        // Prevent keyup events
+        function preventKeyup(event) {
+            event.preventDefault();
+        }
+
+        // Prevent keypress events
+        function preventKeypress(event) {
+            event.preventDefault();
+        }
+
+        // Toggle the keyboard lock
+        function toggleLock() {
+            if (isLocked) {
+                unlockKeyboard();
+                isLocked = false;
+                document.getElementById('toggleButton').textContent = 'Lock';
+            } else {
+                lockKeyboard();
+                isLocked = true;
+                document.getElementById('toggleButton').textContent = 'Unlock';
+            }
+        }
+
+        // Attach click event to the toggle button
+        document.getElementById('toggleButton').addEventListener('click', toggleLock);
+    </script>
+</body>
+</html>
